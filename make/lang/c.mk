@@ -60,6 +60,10 @@ C_LIB_SRC := $(filter-out $(C_MAIN_SRC),$(C_SRC))
 #
 -include $(C_SRC:%.c=$(archdir)/%.d)
 
+ifneq ($(filter $(origin CC),undefined default),)
+export CC	= $(CROSS_COMPILE)gcc
+endif
+
 C_MAIN_OBJ = $(C_MAIN_SRC:%.c=$(archdir)/%.$(o))
 C_LIB_OBJ = $(C_LIB_SRC:%.c=$(archdir)/%.$(o))
 C_OBJ	= $(C_MAIN_OBJ) $(C_LIB_OBJ)

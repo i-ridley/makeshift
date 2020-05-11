@@ -53,6 +53,10 @@ endif
 #
 -include $(C++_SRC:%.$(C++_SUFFIX)=$(archdir)/%.d)
 
+ifneq ($(filter $(origin CXX),undefined default),)
+export CXX	= $(CROSS_COMPILE)g++
+endif
+
 C++	= $(CXX)
 LD	= $(CXX)
 

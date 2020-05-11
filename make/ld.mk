@@ -21,7 +21,7 @@ include coverage.mk
 # be compiled, the language may override LD with its variation.  If not,
 # LD falls back to $(CC).
 #
-ifeq ($(LD), ld)
+ifneq ($(filter $(origin LD), undefined default),)
     LD = $(CC)
 endif
 

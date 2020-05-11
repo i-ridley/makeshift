@@ -27,11 +27,18 @@ LN      = ln -f
 MV	= mv
 MKDIR   = mkdir -p
 PS2PDF	= pstopdf
-RANLIB	= ranlib
 RMDIR	= rmdir
 SED     = sed
 STRIP	= strip
 SYMLINK = ln -sf
+
+ifneq ($(filter $(origin AR),undefined default),)
+export AR	= $(CROSS_COMPILE)ar
+endif
+
+ifneq ($(filter $(origin RANLIB),undefined default),)
+export RANLIB	= $(CROSS_COMPILE)ranlib
+endif
 
 #
 # INSTALL_*: --Specialised install commands.
