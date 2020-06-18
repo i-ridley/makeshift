@@ -33,7 +33,7 @@ $(includedir)/makeshift.mk:
 #
 # makeshift-version.mk: --Install a file recording the makeshift version.
 #
-install:	$(includedir)/makeshift-version.mk
+install:	$(includedir)/makeshift-version.mk $(includedir)/makeshift-config.mk
 
 $(includedir)/makeshift-version.mk: makeshift-version.mk
 	$(INSTALL_DATA) $? $@
@@ -43,6 +43,12 @@ makeshift-version.mk: _VERSION _BUILD
 	echo "export MAKESHIFT_VERSION=$$(cat _VERSION)" >$@
 	echo "export MAKESHIFT_BUILD=$$(cat _BUILD)" >>$@
 
+$(includedir)/devkit-config.mk: devkit-config.mk
+	$(INSTALL_DATA) $? $@
+
+devkit-config.mk:
+	echo "export DEVKIT_HOME=$(prefix)" >$@
+
 uninstall:	uninstall-local
 uninstall-local:
 	$(ECHO_TARGET)
@@ -51,4 +57,4 @@ uninstall-local:
 
 distclean:	clean-this
 clean-this:
-	$(RM) makeshift-version.mk
+	$(RM) makeshift-version.mk makeshift-config.mk
